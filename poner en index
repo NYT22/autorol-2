@@ -1,0 +1,20 @@
+client.on("ready", () =>{
+  console.log("bot activado")
+  client.channels.cache.get("").messages.fetch("").then(msg => {
+    let ifilter = i => !i.user.bot;
+
+    const collector = msg.createMessageComponentCollector({ filter: ifilter })
+
+    collector.on("collect", async i => {
+      if(i.customId === "revivir chat"){
+        if(!i.member.roles.cache.has("")){
+          await i.member.roles.add("")
+          i.reply({ content: "se te agrego el rol <@&id del rol>", ephemeral: true})
+        } else {
+          i.reply({ content: "ya tenes el rol <@& id del rol >", ephemeral: true})
+        }
+      }
+    })
+  })
+});
+
